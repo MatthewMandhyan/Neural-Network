@@ -24,11 +24,11 @@ X_dev = X_dev / 255.
 
 def init_params():
     #first layer
-    w1 = np.random.randn(15, 784) 
-    b1 = np.random.randn(15,1)
+    w1 = np.sqrt(2/784)*np.random.randn(128, 784) 
+    b1 = np.zeros((128,1))
     #second layer
-    w2 = np.random.randn(10,15)
-    b2 = np.random.randn(10,1)
+    w2 = np.sqrt(2/128)*np.random.randn(10,128)
+    b2 = np.zeros((10,1))
     return w1,b1,w2,b2
 
 def ReLU(Z):
@@ -85,12 +85,12 @@ def gradient_descent(X, Y, iterations, alpha):
         Z1, A1, Z2, A2 = forward_prop(w1, b1, w2, b2, X)
         dW1, db1, dW2, db2 = back_prop(Z1, A1, Z2, A2, w2, X, Y)
         w1, b1, w2, b2 = update_params(w1, b1, w2, b2, dW1, db1, dW2, db2, alpha)
-        if i % 10 == 0:
+        if i % 100 == 0:
             print("Iteration:", i)
             print("Accuracy:", get_accuracy(get_predictions(A2), Y))
     return w1, b1, w2, b2
     
-w1, b1, w2, b2 = gradient_descent(X_train, Y_train, 2000, .1)
+w1, b1, w2, b2 = gradient_descent(X_train, Y_train, 1500, .2)
 
 
 
